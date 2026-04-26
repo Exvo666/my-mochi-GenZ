@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mochi Gen-Z – Mochi Kekinian Favorit Gen-Z</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&family=Pacifico&display=swap" rel="stylesheet" />
+
+<style>
+  /* ======================== CSS VARIABLES ======================== */
+  :root {
+    --pink:        #e91e8c;
+    --pink-light:  #ff6bb5;
+    --pink-pale:   #fff0f7;
+    --pink-border: #ffd6ec;
+    --dark:        #1a1a2e;
+    --dark-soft:   #2d2d44;
+    --cream:       #fdf6f0;
+    --text:        #3b3b3b;
+    --text-soft:   #888;
+    --white:       #ffffff;
+    --shadow-pink: 0 8px 32px rgba(233,30,140,0.18);
+    --shadow-card: 0 4px 24px rgba(0,0,0,0.08);
+    --radius:      18px;
+    --transition:  0.35s cubic-bezier(.4,0,.2,1);
+  }
+
+  /* ======================== RESET ======================== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ======================== SCROLLBAR ======================== */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--pink-pale); }
+  ::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 10px; }
+
+  /* ======================== FLOATING PARTICLES ======================== */
+  .particles {
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 0;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.18;
+    animation: float-particle linear infinite;
+  }
+  @keyframes float-particle {
+    0%   { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.18; }
+    90%  { opacity: 0.18; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* ======================== NAVBAR ======================== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1.5px solid var(--pink-border);
+    transition: box-shadow var(--transition), background var(--transition);
+  }
+  nav.scrolled {
+    box-shadow: 0 4px 24px rgba(233,30,140,0.10);
+    background: rgba(255,255,255,0.97);
+  }
+  .nav-logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 1.55rem;
+    color: var(--pink);
+    letter-spacing: -0.5px;
+    position: relative;
+  }
+  .nav-logo span {
+    color: var(--dark);
+    font-size: 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    letter-spacing: 2px;
+    display: block;
+    line-height: 1;
+    margin-top: -4px;
+  }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none; align-items: center;
+  }
+  .nav-links a {
+    font-weight: 500;
+    font-size: 0.92rem;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    position: relative;
+    transition: color var(--transition);
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 2px; background: var(--pink);
+    transform: scaleX(0); transform-origin: right;
+    transition: transform var(--transition);
+  }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-links a:hover::after,
+  .nav-links a.active::after { transform: scaleX(1); transform-origin: left; }
+  .nav-links a.active { color: var(--pink); }
+  .nav-cta {
+    background: var(--pink);
+    color: var(--white) !important;
+    padding: 9px 22px;
+    border-radius: 50px;
+    font-weight: 600 !important;
+    box-shadow: var(--shadow-pink);
+    transition: transform var(--transition), box-shadow var(--transition) !important;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 12px 32px rgba(233,30,140,0.30) !important;
+  }
+  .nav-cta::after { display: none !important; }
+
+  /* Hamburger */
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; padding: 4px;
+  }
+  .hamburger span {
+    width: 24px; height: 2.5px;
+    background: var(--pink); border-radius: 2px;
+    transition: var(--transition);
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+  /* Mobile nav */
+  .mobile-nav {
+    display: none; flex-direction: column;
+    position: fixed; top: 70px; left: 0; right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(18px);
+    padding: 1.5rem 5%;
+    border-bottom: 1.5px solid var(--pink-border);
+    z-index: 999;
+    gap: 1.2rem;
+    animation: slideDown 0.3s ease;
+  }
+  .mobile-nav.open { display: flex; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .mobile-nav a {
+    font-weight: 500; font-size: 1rem; color: var(--text);
+    border-bottom: 1px solid var(--pink-border); padding-bottom: 0.8rem;
+    transition: color var(--transition);
+  }
+  .mobile-nav a:hover { color: var(--pink); }
+
+  /* ======================== HERO ======================== */
+  #home {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    padding-top: 70px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, #fff0f7 0%, #fce4f3 40%, #f8d7ea 70%, #fce4f3 100%);
+    z-index: 0;
+  }
+  /* Decorative blobs */
+  .blob {
+    position: absolute; border-radius: 50%;
+    filter: blur(60px); pointer-events: none;
+  }
+  .blob-1 {
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(233,30,140,0.20) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    animation: blob-drift 8s ease-in-out infinite alternate;
+  }
+  .blob-2 {
+    width: 380px; height: 380px;
+    background: radial-gradient(circle, rgba(255,107,181,0.22) 0%, transparent 70%);
+    bottom: 50px; left: -80px;
+    animation: blob-drift 10s ease-in-out infinite alternate-reverse;
+  }
+  .blob-3 {
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(233,30,140,0.12) 0%, transparent 70%);
+    top: 40%; left: 40%;
+    animation: blob-drift 12s ease-in-out infinite alternate;
+  }
+  @keyframes blob-drift {
+    0%   { transform: translate(0,0) scale(1); }
+    100% { transform: translate(30px, 20px) scale(1.08); }
+  }
+
+  .hero-inner {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 3rem;
+    max-width: 1200px; width: 90%; margin: 0 auto;
+    padding: 4rem 0;
+  }
+  .hero-text { animation: fadeSlideLeft 0.9s ease both; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--white);
+    border: 1.5px solid var(--pink-border);
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--pink);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 2px 12px rgba(233,30,140,0.10);
+  }
+  .hero-badge-dot {
+    width: 8px; height: 8px;
+    background: var(--pink); border-radius: 50%;
+    animation: pulse-dot 1.5s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--dark);
+    margin-bottom: 1.2rem;
+  }
+  .hero-h1 em {
+    font-style: italic;
+    background: linear-gradient(90deg, var(--pink), var(--pink-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-soft);
+    font-weight: 400;
+    line-height: 1.75;
+    max-width: 440px;
+    margin-bottom: 2.2rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--pink);
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 14px 32px;
+    border-radius: 50px;
+    box-shadow: var(--shadow-pink);
+    transition: transform var(--transition), box-shadow var(--transition);
+    letter-spacing: 0.3px;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 16px 40px rgba(233,30,140,0.35);
+  }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--pink);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 13px 28px;
+    border-radius: 50px;
+    border: 2px solid var(--pink-border);
+    transition: var(--transition);
+    cursor: pointer;
+  }
+  .btn-secondary:hover {
+    background: var(--pink-pale);
+    border-color: var(--pink);
+    transform: translateY(-2px);
+  }
+
+  /* Stats */
+  .hero-stats {
+    display: flex; gap: 2rem; margin-top: 2.5rem;
+    animation: fadeSlideLeft 0.9s 0.3s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    color: var(--pink);
+    display: block; line-height: 1;
+  }
+  .stat-label { font-size: 0.75rem; color: var(--text-soft); margin-top: 4px; }
+  .stat-sep { width: 1px; background: var(--pink-border); }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative;
+    animation: fadeSlideRight 0.9s 0.2s ease both;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .hero-img-main {
+    width: 100%; max-width: 520px;
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+    object-fit: cover;
+    height: 460px;
+    box-shadow: 0 20px 60px rgba(233,30,140,0.22);
+    animation: morphBlob 8s ease-in-out infinite alternate;
+  }
+  @keyframes morphBlob {
+    0%   { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+    50%  { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; }
+    100% { border-radius: 50% 50% 60% 40% / 60% 40% 50% 50%; }
+  }
+  .hero-tag {
+    position: absolute;
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 10px 16px;
+    box-shadow: var(--shadow-card);
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.82rem; font-weight: 600;
+    border: 1.5px solid var(--pink-border);
+    animation: float-tag 3s ease-in-out infinite alternate;
+  }
+  .hero-tag.tag-1 { bottom: 80px; left: -20px; animation-delay: 0s; }
+  .hero-tag.tag-2 { top: 60px;    right: -10px; animation-delay: 1s; }
+  .hero-tag.tag-3 { bottom: 20px; right: 20px;  animation-delay: 0.5s; }
+  @keyframes float-tag {
+    0%   { transform: translateY(0); }
+    100% { transform: translateY(-10px); }
+  }
+  .tag-emoji { font-size: 1.3rem; }
+  .tag-text span { display: block; font-size: 0.68rem; font-weight: 400; color: var(--text-soft); }
+
+  /* Scroll indicator */
+  .scroll-indicator {
+    position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    z-index: 2; animation: bounce 2s infinite;
+  }
+  .scroll-indicator span {
+    font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-soft); font-weight: 500;
+  }
+  .scroll-line {
+    width: 1.5px; height: 40px;
+    background: linear-gradient(to bottom, var(--pink), transparent);
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ======================== SECTION COMMONS ======================== */
+  section { position: relative; z-index: 1; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 0.8rem;
+  }
+  .section-tag::before, .section-tag::after {
+    content: '—'; opacity: 0.5;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.2;
+  }
+  .section-title em {
+    font-style: italic;
+    background: linear-gradient(90deg, var(--pink), var(--pink-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-sub {
+    color: var(--text-soft);
+    font-size: 1.02rem;
+    max-width: 520px;
+    line-height: 1.75;
+    margin-top: 0.8rem;
+  }
+  .section-header { text-align: center; margin-bottom: 3.5rem; }
+  .section-header .section-sub { margin: 0.8rem auto 0; }
+
+  /* ======================== MARQUEE / TICKER ======================== */
+  .marquee-section {
+    background: var(--pink);
+    padding: 14px 0;
+    overflow: hidden;
+  }
+  .marquee-track {
+    display: flex; gap: 2rem;
+    animation: marquee 18s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 600; font-size: 0.9rem;
+    color: var(--white); letter-spacing: 0.5px;
+  }
+  .marquee-dot { width: 6px; height: 6px; background: rgba(255,255,255,0.6); border-radius: 50%; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* ======================== PRODUK ======================== */
+  #produk {
+    padding: 6rem 5%;
+    background: linear-gradient(180deg, #fff0f7 0%, var(--white) 100%);
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .product-card {
+    background: var(--white);
+    border-radius: calc(var(--radius) + 6px);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    border: 1.5px solid var(--pink-border);
+    transition: transform var(--transition), box-shadow var(--transition);
+    position: relative;
+    cursor: pointer;
+  }
+  .product-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: var(--shadow-pink);
+  }
+  .product-card-badge {
+    position: absolute; top: 14px; left: 14px; z-index: 2;
+    background: var(--pink); color: var(--white);
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+    padding: 4px 12px; border-radius: 50px;
+  }
+  .product-img-wrap {
+    position: relative; overflow: hidden; height: 220px;
+    background: var(--pink-pale);
+  }
+  .product-img-wrap img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .product-card:hover .product-img-wrap img { transform: scale(1.08); }
+  .product-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(233,30,140,0.4) 0%, transparent 60%);
+    opacity: 0; transition: opacity var(--transition);
+  }
+  .product-card:hover .product-overlay { opacity: 1; }
+  .product-body { padding: 1.5rem; }
+  .product-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 700;
+    color: var(--dark); margin-bottom: 0.4rem;
+  }
+  .product-desc { font-size: 0.85rem; color: var(--text-soft); line-height: 1.6; margin-bottom: 1rem; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; }
+  .product-price {
+    font-size: 1.25rem; font-weight: 700; color: var(--pink);
+    font-family: 'Playfair Display', serif;
+  }
+  .product-order-btn {
+    background: var(--pink); color: var(--white);
+    border: none; cursor: pointer;
+    font-size: 0.82rem; font-weight: 700;
+    padding: 9px 20px; border-radius: 50px;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: transform var(--transition), box-shadow var(--transition);
+    letter-spacing: 0.3px;
+  }
+  .product-order-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 8px 24px rgba(233,30,140,0.3);
+  }
+
+  /* Stars */
+  .product-stars { display: flex; gap: 2px; margin-bottom: 0.7rem; }
+  .star { color: #f9c74f; font-size: 0.85rem; }
+
+  /* ======================== KEUNGGULAN ======================== */
+  #keunggulan {
+    padding: 6rem 5%;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+  #keunggulan::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 20% 50%, rgba(233,30,140,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(255,107,181,0.10) 0%, transparent 50%);
+  }
+  #keunggulan .section-title { color: var(--white); }
+  #keunggulan .section-sub { color: rgba(255,255,255,0.55); }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.8rem;
+    max-width: 1100px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .feature-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius);
+    padding: 2rem 1.6rem;
+    transition: transform var(--transition), background var(--transition), border-color var(--transition);
+  }
+  .feature-card:hover {
+    transform: translateY(-8px);
+    background: rgba(233,30,140,0.12);
+    border-color: rgba(233,30,140,0.35);
+  }
+  .feature-icon {
+    font-size: 2.4rem; margin-bottom: 1rem;
+    display: inline-block;
+    animation: icon-rock 3s ease-in-out infinite;
+  }
+  @keyframes icon-rock {
+    0%, 100% { transform: rotate(-5deg); }
+    50%       { transform: rotate(5deg); }
+  }
+  .feature-title { font-weight: 700; font-size: 1rem; color: var(--white); margin-bottom: 0.5rem; }
+  .feature-desc  { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  /* ======================== GALERI ======================== */
+  #galeri {
+    padding: 6rem 5%;
+    background: var(--pink-pale);
+    position: relative; overflow: hidden;
+  }
+  .galeri-filters {
+    display: flex; gap: 0.75rem; justify-content: center;
+    flex-wrap: wrap; margin-bottom: 2.8rem;
+  }
+  .filter-btn {
+    background: var(--white); color: var(--text);
+    border: 1.5px solid var(--pink-border);
+    border-radius: 50px; padding: 8px 22px;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--pink); color: var(--white);
+    border-color: var(--pink);
+    box-shadow: var(--shadow-pink);
+    transform: translateY(-2px);
+  }
+  .galeri-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .galeri-item {
+    position: relative; border-radius: var(--radius);
+    overflow: hidden; cursor: pointer;
+    aspect-ratio: 1 / 1;
+    background: var(--pink-border);
+    transition: transform var(--transition);
+    box-shadow: var(--shadow-card);
+  }
+  .galeri-item:hover { transform: scale(1.03); }
+  .galeri-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease, filter 0.4s ease;
+  }
+  .galeri-item:hover img { transform: scale(1.1); filter: brightness(0.82); }
+  .galeri-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(26,26,46,0.85) 0%, transparent 100%);
+    padding: 2rem 1rem 1rem;
+    color: var(--white); font-size: 0.85rem; font-weight: 600;
+    transform: translateY(100%); transition: transform var(--transition);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .galeri-item:hover .galeri-label { transform: translateY(0); }
+  .galeri-item.span-2 { grid-column: span 2; aspect-ratio: 2/1; }
+
+  /* ======================== TESTIMONI ======================== */
+  #testimoni {
+    padding: 6rem 5%;
+    background: var(--white);
+    overflow: hidden;
+  }
+  .testi-track-wrap { overflow: hidden; margin: 0 -5%; }
+  .testi-track {
+    display: flex; gap: 1.5rem;
+    animation: scroll-testi 25s linear infinite;
+    width: max-content; padding: 0.5rem 5%;
+  }
+  .testi-track:hover { animation-play-state: paused; }
+  @keyframes scroll-testi {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .testi-card {
+    background: var(--white);
+    border: 1.5px solid var(--pink-border);
+    border-radius: var(--radius);
+    padding: 1.6rem;
+    min-width: 280px; max-width: 300px;
+    box-shadow: var(--shadow-card);
+    flex-shrink: 0;
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .testi-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-pink);
+    border-color: var(--pink-light);
+  }
+  .testi-stars { display: flex; gap: 3px; margin-bottom: 0.8rem; }
+  .testi-text { font-size: 0.88rem; color: var(--text); line-height: 1.7; font-style: italic; margin-bottom: 1rem; }
+  .testi-author { display: flex; align-items: center; gap: 10px; }
+  .testi-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink), var(--pink-light));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; color: var(--white); font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+  .testi-name { font-weight: 700; font-size: 0.88rem; color: var(--dark); }
+  .testi-loc  { font-size: 0.75rem; color: var(--text-soft); }
+
+  /* ======================== KONTAK ======================== */
+  #kontak {
+    padding: 6rem 5%;
+    background: linear-gradient(160deg, var(--dark) 0%, #16162a 100%);
+    position: relative; overflow: hidden;
+  }
+  #kontak::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(233,30,140,0.18) 0%, transparent 60%);
+  }
+  .kontak-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    position: relative; z-index: 1;
+  }
+  #kontak .section-title { color: var(--white); }
+  #kontak .section-sub   { color: rgba(255,255,255,0.55); }
+  .kontak-info { display: flex; flex-direction: column; gap: 1.5rem; }
+  .kontak-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 1.2rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius);
+    transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .kontak-item:hover {
+    background: rgba(233,30,140,0.15);
+    border-color: rgba(233,30,140,0.4);
+    transform: translateX(8px);
+  }
+  .kontak-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(233,30,140,0.20);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+    transition: background var(--transition);
+  }
+  .kontak-item:hover .kontak-icon { background: var(--pink); }
+  .kontak-detail strong {
+    display: block; font-weight: 700; font-size: 0.88rem; color: var(--white);
+    margin-bottom: 2px;
+  }
+  .kontak-detail span { font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+
+  /* WhatsApp CTA */
+  .wa-cta {
+    display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1rem;
+  }
+  .wa-btn {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: #25D366; color: var(--white);
+    padding: 15px 28px; border-radius: 50px;
+    font-weight: 700; font-size: 1rem;
+    border: none; cursor: pointer;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.35);
+    transition: transform var(--transition), box-shadow var(--transition);
+    text-decoration: none; width: fit-content;
+  }
+  .wa-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 14px 40px rgba(37,211,102,0.45);
+  }
+  .wa-icon { font-size: 1.35rem; }
+  .socials { display: flex; gap: 1rem; margin-top: 0.5rem; }
+  .social-btn {
+    width: 46px; height: 46px; border-radius: 14px;
+    border: 1.5px solid rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; cursor: pointer;
+    transition: var(--transition); background: rgba(255,255,255,0.05);
+    color: var(--white);
+  }
+  .social-btn:hover {
+    background: var(--pink); border-color: var(--pink);
+    transform: translateY(-4px) scale(1.1);
+    box-shadow: var(--shadow-pink);
+  }
+
+  /* Contact Form */
+  .contact-form {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: calc(var(--radius) + 6px);
+    padding: 2.5rem;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.6); letter-spacing: 0.5px; }
+  .form-input {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 12px; padding: 12px 16px;
+    color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    outline: none; transition: border-color var(--transition), background var(--transition);
+  }
+  .form-input::placeholder { color: rgba(255,255,255,0.3); }
+  .form-input:focus {
+    border-color: var(--pink);
+    background: rgba(233,30,140,0.08);
+  }
+  textarea.form-input { min-height: 110px; resize: vertical; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit {
+    background: var(--pink); color: var(--white);
+    border: none; border-radius: 50px; padding: 14px 28px;
+    font-size: 0.95rem; font-weight: 700; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: var(--shadow-pink);
+    transition: transform var(--transition), box-shadow var(--transition);
+    letter-spacing: 0.3px;
+  }
+  .form-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(233,30,140,0.45);
+  }
+
+  /* ======================== FOOTER ======================== */
+  footer {
+    background: #0f0f1e;
+    padding: 3rem 5% 2rem;
+    position: relative;
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Pacifico', cursive; font-size: 2rem;
+    background: linear-gradient(90deg, var(--pink), var(--pink-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .footer-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.35); }
+  .footer-links {
+    display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; justify-content: center;
+  }
+  .footer-links a {
+    font-size: 0.85rem; color: rgba(255,255,255,0.45);
+    transition: color var(--transition);
+  }
+  .footer-links a:hover { color: var(--pink); }
+  .footer-divider {
+    width: 100%; height: 1px; background: rgba(255,255,255,0.07);
+  }
+  .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+
+  /* ======================== FLOATING WA BUTTON ======================== */
+  .floating-wa {
+    position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+    width: 58px; height: 58px; border-radius: 50%;
+    background: #25D366; color: var(--white);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.7rem;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.5);
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+    animation: wa-pulse 2.5s ease-in-out infinite;
+    text-decoration: none;
+  }
+  .floating-wa:hover {
+    transform: scale(1.15);
+    box-shadow: 0 16px 40px rgba(37,211,102,0.65);
+    animation: none;
+  }
+  @keyframes wa-pulse {
+    0%, 100% { box-shadow: 0 8px 32px rgba(37,211,102,0.5), 0 0 0 0 rgba(37,211,102,0.4); }
+    50%       { box-shadow: 0 8px 32px rgba(37,211,102,0.5), 0 0 0 14px rgba(37,211,102,0); }
+  }
+
+  /* ======================== BACK TO TOP ======================== */
+  .back-top {
+    position: fixed; bottom: 28px; left: 28px; z-index: 9999;
+    width: 46px; height: 46px; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: var(--white); font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: var(--transition);
+    opacity: 0; pointer-events: none;
+  }
+  .back-top.visible {
+    opacity: 1; pointer-events: auto;
+    animation: fadeIn 0.4s ease;
+  }
+  .back-top:hover {
+    background: var(--pink); border-color: var(--pink);
+    transform: translateY(-4px);
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ======================== TOAST ======================== */
+  .toast {
+    position: fixed; bottom: 90px; right: 28px; z-index: 9999;
+    background: var(--dark); color: var(--white);
+    padding: 12px 22px; border-radius: 50px;
+    font-size: 0.88rem; font-weight: 600;
+    border: 1px solid rgba(233,30,140,0.4);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    display: flex; align-items: center; gap: 8px;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ======================== LIGHTBOX ======================== */
+  .lightbox-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.92);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+  }
+  .lightbox-overlay.open { opacity: 1; pointer-events: auto; }
+  .lightbox-img {
+    max-width: 90vw; max-height: 85vh; border-radius: 16px;
+    box-shadow: 0 20px 80px rgba(233,30,140,0.3);
+    transform: scale(0.9); transition: transform 0.35s ease;
+  }
+  .lightbox-overlay.open .lightbox-img { transform: scale(1); }
+  .lightbox-close {
+    position: absolute; top: 24px; right: 28px;
+    font-size: 2rem; color: var(--white); cursor: pointer;
+    transition: color var(--transition), transform var(--transition);
+  }
+  .lightbox-close:hover { color: var(--pink); transform: rotate(90deg); }
+
+  /* ======================== REVEAL ANIMATIONS ======================== */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-right { opacity: 0; transform: translateX(40px);  transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  @keyframes fadeSlideLeft  { from { opacity:0; transform:translateX(-40px); } to { opacity:1; transform:translateX(0); } }
+  @keyframes fadeSlideRight { from { opacity:0; transform:translateX(40px);  } to { opacity:1; transform:translateX(0); } }
+
+  /* ======================== RESPONSIVE ======================== */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    .hero-text { order: 2; }
+    .hero-visual { order: 1; }
+    .hero-actions { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .hero-sub { margin: 0 auto 2.2rem; }
+    .hero-img-main { max-width: 360px; height: 340px; }
+    .hero-tag.tag-1 { left: 0; }
+    .hero-tag.tag-2 { right: 0; }
+    .kontak-inner { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 600px) {
+    #produk, #galeri, #keunggulan, #kontak, #testimoni { padding: 4rem 5%; }
+    .galeri-item.span-2 { grid-column: span 1; aspect-ratio: 1; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero-tag.tag-3 { display: none; }
+    .contact-form { padding: 1.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== PARTICLES ===== -->
+<div class="particles" id="particles"></div>
+
+<!-- ===== NAVBAR ===== -->
+<nav id="navbar">
+  <div class="nav-logo">
+    Mochi Gen-Z
+    <span>✦ Premium Mochi</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home" class="active">Home</a></li>
+    <li><a href="#produk">Produk</a></li>
+    <li><a href="#keunggulan">Keunggulan</a></li>
+    <li><a href="#galeri">Galeri</a></li>
+    <li><a href="#testimoni">Testimoni</a></li>
+    <li><a href="https://wa.me/6287814749635?text=Halo%20Mochi%20Gen-Z%2C%20saya%20ingin%20pesan!" target="_blank" class="nav-cta">Pesan Sekarang</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#home">🏠 Home</a>
+  <a href="#produk">🍡 Produk</a>
+  <a href="#keunggulan">⭐ Keunggulan</a>
+  <a href="#galeri">📸 Galeri</a>
+  <a href="#testimoni">💬 Testimoni</a>
+  <a href="#kontak">📞 Kontak</a>
+  <a href="https://wa.me/6287814749635?text=Halo%20Mochi%20Gen-Z%2C%20saya%20ingin%20pesan!" target="_blank" style="color:var(--pink);">💬 Pesan via WhatsApp</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section id="home">
+  <div class="hero-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Tersedia Sekarang
+      </div>
+      <h1 class="hero-h1">Mochi Kekinian<br><em>Favorit Gen-Z</em></h1>
+      <p class="hero-sub">Mochi lembut dengan kombinasi whipped cream dan cream cheese, rasa premium yang tetap <em>terjangkau</em> — dikirim fresh ke tanganmu! 🍡</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/6287814749635?text=Halo%20Mochi%20Gen-Z%2C%20saya%20ingin%20pesan%20sekarang!" target="_blank" class="btn-primary">
+          <span class="wa-icon">💬</span> Pesan Sekarang
+        </a>
+        <a href="#produk" class="btn-secondary">Lihat Produk →</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">500+</span>
+          <div class="stat-label">Pelanggan Puas</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <span class="stat-num">4.9★</span>
+          <div class="stat-label">Rating Rata-rata</div>
+        </div>
+        <div class="stat-sep"></div>
+        <div class="stat">
+          <span class="stat-num">3</span>
+          <div class="stat-label">Varian Rasa</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img
+        class="hero-img-main"
+        src="https://plus.unsplash.com/premium_photo-1700590072629-c051ca7ce0f3?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Mochi Gen-Z"
+        loading="eager"
+        onerror="this.src='https://images.unsplash.com/photo-1582716401301-b2407dc7563d?w=700&q=80'"
+      />
+      <div class="hero-tag tag-1">
+        <div class=   "tag-emoji">🍡</div>
+        <div class="tag-text">Premium Quality<span>Bahan terpilih</span></div>
+      </div>
+      <div class="hero-tag tag-2">
+        <div class="tag-emoji">🚀</div>
+        <div class="tag-text">Pengiriman Cepat<span>Same-day delivery</span></div>
+      </div>
+      <div class="hero-tag tag-3">
+        <div class="tag-emoji">❤️</div>
+        <div class="tag-text">500+ Happy<span>Customers</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ===== MARQUEE ===== -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+     <!-- items duplicated in JS -->
+  </div>
+</div>
+
+<!-- ===== PRODUK ===== -->
+<section id="produk">
+  <div class="section-header reveal">
+    <div class="section-tag">Produk Kami</div>
+    <h2 class="section-title">Produk Mochi <em>Favorit</em></h2>
+    <p class="section-sub">Nikmati Aneka Mochi Kekinian dengan Beragam Rasa yang Bikin Nagih!</p>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card reveal" style="transition-delay:0.1s">
+      <div class="product-card-badge">Best Seller</div>
+      <div class="product-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1674403442429-95df05a192e6?q=80&w=464&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Mochi Choco Mint"
+          loading="lazy"
+          onerror="this.style.background='linear-gradient(135deg,#a8e063,#56ab2f)'"
+        />
+        <div class="product-overlay"></div>
+      </div>
+      <div class="product-body">
+        <div class="product-stars">★★★★★</div>
+        <div class="product-name">Mochi Choco Mint</div>
+        <div class="product-desc">Perpaduan coklat premium dengan sensasi mint yang segar. Lembut di luar, meleleh di dalam!</div>
+        <div class="product-footer">
+          <div class="product-price">Rp 12.000</div>
+          <button class="product-order-btn" onclick="orderWA('Mochi Choco Mint')">
+            💬 Pesan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal" style="transition-delay:0.2s">
+      <div class="product-card-badge">Favorit</div>
+      <div class="product-img-wrap">
+        <img
+          src="https://images.unsplash.com/photo-1618485476424-7dc9cd512c08?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Mochi Strawberry"
+          loading="lazy"
+          onerror="this.style.background='linear-gradient(135deg,#ff9a9e,#fad0c4)'"
+        />
+        <div class="product-overlay"></div>
+      </div>
+      <div class="product-body">
+        <div class="product-stars">★★★★★</div>
+        <div class="product-name">Mochi Strawberry</div>
+        <div class="product-desc">Isian stroberi asli yang segar bertemu kulit mochi pink yang imut. Cocok banget buat foto!</div>
+        <div class="product-footer">
+          <div class="product-price">Rp 12.000</div>
+          <button class="product-order-btn" onclick="orderWA('Mochi Strawberry')">
+            💬 Pesan
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card reveal" style="transition-delay:0.3s">
+      <div class="product-card-badge">New!</div>
+      <div class="product-img-wrap">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1776973055738-fd36dece8ee0?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          alt="Mochi Oreo"
+          loading="lazy"
+          onerror="this.style.background='linear-gradient(135deg,#434343,#000)'"
+        />
+        <div class="product-overlay"></div>
+      </div>
+      <div class="product-body">
+        <div class="product-stars">★★★★★</div>
+        <div class="product-name">Mochi Oreo</div>
+        <div class="product-desc">Kombinasi unik mochi lembut dengan remahan Oreo renyah. Crunch yang bikin ketagihan!</div>
+        <div class="product-footer">
+          <div class="product-price">Rp 12.000</div>
+          <button class="product-order-btn" onclick="orderWA('Mochi Oreo')">
+            💬 Pesan
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== KEUNGGULAN ===== -->
+<section id="keunggulan">
+  <div class="section-header reveal">
+    <div class="section-tag" style="color:rgba(233,30,140,0.9)">Kenapa Kami?</div>
+    <h2 class="section-title">Keunggulan <em>Mochi Gen-Z</em></h2>
+    <p class="section-sub">Kami bukan sekadar mochi biasa — ini pengalaman rasa yang tak terlupakan.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal" style="transition-delay:0.05s">
+      <div class="feature-icon">🌿</div>
+      <div class="feature-title">Bahan Premium</div>
+      <div class="feature-desc">Menggunakan bahan-bahan pilihan berkualitas tinggi, bebas pengawet, dan fresh setiap hari.</div>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.1s">
+      <div class="feature-icon">🧊</div>
+      <div class="feature-title">Dikirim Fresh</div>
+      <div class="feature-desc">Setiap pesanan dikemas dengan es gel khusus agar mochi tetap segar sampai ke tanganmu.</div>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.15s">
+      <div class="feature-icon">💝</div>
+      <div class="feature-title">Kemasan Cantik</div>
+      <div class="feature-desc">Packaging premium yang aesthetic dan Instagram-worthy, cocok untuk hampers dan kado.</div>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.2s">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Proses Cepat</div>
+      <div class="feature-desc">Pesan pagi, terima siang! Kami berkomitmen pada kecepatan dan ketepatan pengiriman.</div>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.25s">
+      <div class="feature-icon">💰</div>
+      <div class="feature-title">Harga Terjangkau</div>
+      <div class="feature-desc">Rasa premium dengan harga yang bersahabat. Mulai dari Rp 12.000/pcs, cocok untuk semua kalangan.</div>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:0.3s">
+      <div class="feature-icon">⭐</div>
+      <div class="feature-title">Rating Tinggi</div>
+      <div class="feature-desc">Lebih dari 500 pelanggan puas dengan rating rata-rata 4.9/5. Kepuasan Anda adalah prioritas kami.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GALERI ===== -->
+<section id="galeri">
+  <div class="section-header reveal">
+    <div class="section-tag">Galeri</div>
+    <h2 class="section-title">Galeri <em>Mochi Gen-Z</em></h2>
+    <p class="section-sub">Lihat kelezatan mochi premium yang lembut, manis pas, dan super kekinian!</p>
+  </div>
+  <div class="galeri-filters reveal">
+    <button class="filter-btn active" data-filter="semua">🍡 Semua</button>
+    <button class="filter-btn" data-filter="produk">🧁 Produk</button>
+    <button class="filter-btn" data-filter="kemasan">📦 Kemasan</button>
+    <button class="filter-btn" data-filter="momen">📸 Momen</button>
+  </div>
+  <div class="galeri-grid" id="galeriGrid">
+    <!-- rendered by JS -->
+  </div>
+</section>
+
+<!-- ===== TESTIMONI ===== -->
+<section id="testimoni">
+  <div class="section-header reveal">
+    <div class="section-tag">Testimoni</div>
+    <h2 class="section-title">Kata Mereka yang Udah <em>Nyoba</em></h2>
+    <p class="section-sub">Ribuan pelanggan sudah merasakan kelezatan Mochi Gen-Z. Kapan giliranmu? 🥰</p>
+  </div>
+  <div class="testi-track-wrap">
+    <div class="testi-track" id="testiTrack">
+      <!-- rendered by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ===== KONTAK ===== -->
+<section id="kontak">
+  <div class="kontak-inner">
+    <div class="kontak-info reveal-left">
+      <div>
+        <div class="section-tag" style="color:rgba(233,30,140,0.9)">Hubungi Kami</div>
+        <h2 class="section-title">Mari <em>Terhubung</em></h2>
+        <p class="section-sub" style="margin-top:0.8rem">Siap melayani pemesanan, pertanyaan, dan kolaborasi. Kami selalu siap membantu kamu!</p>
+      </div>
+      <a href="https://wa.me/6287814749635?text=Halo%20Mochi%20Gen-Z!" target="_blank" class="kontak-item">
+        <div class="kontak-icon">📞</div>
+        <div class="kontak-detail">
+          <strong>WhatsApp</strong>
+          <span>+62 878 1474 9635</span>
+        </div>
+      </a>
+      <a href="mailto:mochigenz@gmail.com" class="kontak-item">
+        <div class="kontak-icon">📧</div>
+        <div class="kontak-detail">
+          <strong>Email</strong>
+          <span>mochigenz@gmail.com</span>
+        </div>
+      </a>
+      <div class="kontak-item">
+        <div class="kontak-icon">📍</div>
+        <div class="kontak-detail">
+          <strong>Lokasi</strong>
+          <span>Tebing tinggi, Sumatera Utara, Indonesia</span>
+        </div>
+      </div>
+      <div class="kontak-item">
+        <div class="kontak-icon">⏰</div>
+        <div class="kontak-detail">
+          <strong>Jam Operasional</strong>
+          <span>Setiap hari, 08.00 – 21.00 WIB</span>
+        </div>
+      </div>
+      <div class="wa-cta">
+        <a href="https://wa.me/6287814749635?text=Halo%20Mochi%20Gen-Z%2C%20saya%20mau%20pesan!" target="_blank" class="wa-btn">
+          <span class="wa-icon">💬</span> Chat via WhatsApp Sekarang
+        </a>
+        <div class="socials">
+          <a href="#" class="social-btn" title="Instagram">📸</a>
+          <a href="#" class="social-btn" title="TikTok">🎵</a>
+          <a href="#" class="social-btn" title="Facebook">📘</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal-right">
+      <div class="form-title">Kirim Pesan 💌</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nama Lengkap</label>
+          <input type="text" class="form-input" placeholder="Namamu" id="fName" />
+        </div>
+        <div class="form-group">
+          <label>Nomor WA</label>
+          <input type="text" class="form-input" placeholder="08xxxxxxxx" id="fPhone" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Subjek</label>
+        <input type="text" class="form-input" placeholder="Pesanan / Pertanyaan / Lainnya" id="fSubject" />
+      </div>
+      <div class="form-group">
+        <label>Pesan</label>
+        <textarea class="form-input" placeholder="Tulis pesanmu di sini..." id="fMessage"></textarea>
+      </div>
+      <button class="form-submit" onclick="sendContactWA()">
+        💬 Kirim via WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Mochi Gen-Z</div>
+    <p class="footer-tagline">Mochi lembut, rasa premium, harga terjangkau 💕</p>
+    <ul class="footer-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#produk">Produk</a></li>
+      <li><a href="#galeri">Galeri</a></li>
+      <li><a href="#kontak">Kontak</a></li>
+    </ul>
+    <div class="footer-divider"></div>
+    <p class="footer-copy">© 2025 Mochi Gen-Z. Dibuat dengan ❤️ di Medan, Indonesia.</p>
+  </div>
+</footer>
+
+<!-- ===== FLOATING WA ===== -->
+<a href="https://wa.me/6287814749635?text=Halo%20Mochi%20Gen-Z%2C%20saya%20ingin%20pesan!" target="_blank" class="floating-wa" title="Chat WhatsApp">💬</a>
+
+<!-- ===== BACK TO TOP ===== -->
+<div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast">✅ Diarahkan ke WhatsApp...</div>
+
+<!-- ===== LIGHTBOX ===== -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+  <span class="lightbox-close" onclick="document.getElementById('lightbox').classList.remove('open')">✕</span>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="Galeri" />
+</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+/* ---------- PARTICLES ---------- */
+(function(){
+  const container = document.getElementById('particles');
+  const colors = ['#e91e8c','#ff6bb5','#ffd6ec','#ffb3d9'];
+  for(let i = 0; i < 18; i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 6 + Math.random() * 18;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      left:${Math.random()*100}vw;
+      animation-duration:${10+Math.random()*20}s;
+      animation-delay:${Math.random()*15}s;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+/* ---------- MARQUEE ---------- */
+(function(){
+  const items = [
+    '🍡 Mochi Choco Mint','🎉 Free Ongkir Min. 5 pcs','🌸 Mochi Strawberry',
+    '📦 Kemasan Premium','💝 Cocok untuk Hampers','🍪 Mochi Oreo',
+    '⭐ Rating 4.9/5','🚀 Same-day Delivery','✨ 100% Fresh Homemade',
+  ];
+  const track = document.getElementById('marqueeTrack');
+  const html = items.map(t=>`<div class="marquee-item"><div class="marquee-dot"></div>${t}</div>`).join('');
+  track.innerHTML = html + html; // duplicate for seamless loop
+})();
+
+/* ---------- GALERI DATA ---------- */
+const galeriData = [
+  { label:'✨ Kemasan Premium & Cantik', cat:'kemasan',
+    src:'https://plus.unsplash.com/premium_photo-1700590072666-226229efb701?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjF8fG1vY2hpfGVufDB8fDB8fHww', span:false },
+  { label:'🍡 Mochi Choco Mint', cat:'produk',
+    src:'https://images.unsplash.com/photo-1635355347994-b79177b77e5c?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', span:false },
+  { label:'🍓 Mochi Strawberry Fresh', cat:'produk',
+    src:'https://plus.unsplash.com/premium_photo-1700590072622-57a1436da87e?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', span:true },
+  { label:'📦 Ready untuk Hampers', cat:'kemasan',
+    src:'https://plus.unsplash.com/premium_photo-1700830646876-67c582090253?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', span:false },
+  { label:'🛒 Stok Fresh di Showcase', cat:'momen',
+    src:'https://plus.unsplash.com/premium_photo-1700590072648-8faf26e048e2?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', span:false },
+  { label:'🎁 Paket Hadiah Spesial', cat:'kemasan',
+    src:'https://images.unsplash.com/photo-1719388392035-dae4f5dc62a4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fG1vY2hpfGVufDB8fDB8fHww', span:false },
+  { label:'❤️ "Enak banget! Super lembut!"', cat:'momen',
+    src:'https://images.unsplash.com/photo-1629984169599-184e84223c1e?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', span:false },
+  { label:'📸 Instagramable parah! 🤤', cat:'momen',
+    src:'https://images.unsplash.com/photo-1623133894375-ce20135ee521?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', span:false },
+];
+
+function renderGaleri(filter='semua'){
+  const grid = document.getElementById('galeriGrid');
+  grid.innerHTML = '';
+  const filtered = filter==='semua' ? galeriData : galeriData.filter(d=>d.cat===filter);
+  filtered.forEach((d,i)=>{
+    const el = document.createElement('div');
+    el.className = 'galeri-item reveal' + (d.span?' span-2':'');
+    el.style.transitionDelay = (i*0.06)+'s';
+    el.innerHTML = `
+      <img src="${d.src}" alt="${d.label}" loading="lazy" onerror="this.style.background='var(--pink-pale)'" />
+      <div class="galeri-label">${d.label}</div>
+    `;
+    el.addEventListener('click', ()=>openLightbox(d.src));
+    grid.appendChild(el);
+  });
+  requestAnimationFrame(()=>observeReveal());
+}
+renderGaleri();
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderGaleri(btn.dataset.filter);
+  });
+});
+
+/* ---------- TESTIMONI ---------- */
+const testiData = [
+  { name:'Rina S.', loc:'Medan', text:'"Mochi-nya lembut banget! Strawberry-nya fresh, jadi favorit keluarga kami 😍"', stars:5 },
+  { name:'Dimas F.', loc:'Binjai', text:'"Kemasan cantik, cocok banget buat hampers lebaran. Pasti repeat order!"', stars:5 },
+  { name:'Sasha K.', loc:'Medan', text:'"Oreo-nya crunchy banget, bikin ketagihan. Pengiriman juga cepet!"', stars:5 },
+  { name:'Tio R.', loc:'Lubuk Pakam', text:'"Harga ramah di kantong, rasa premium. Sudah pesan 3x dan selalu puas!"', stars:5 },
+  { name:'Bella W.', loc:'Tebing Tinggi', text:'"Instagramable parah! Teman-teman langsung minta dibeliin juga 🤩"', stars:5 },
+  { name:'Hendra J.', loc:'Medan', text:'"Dijamin tidak nyesal. Mochi paling enak yang pernah saya coba!"', stars:5 },
+  { name:'Lilis P.', loc:'Pematang Siantar', text:'"Choco mint-nya bikin nagih. Serius endeuss banget! Wajib coba!"', stars:5 },
+  { name:'Fara M.', loc:'Langkat', text:'"Pelayanan ramah, proses cepat. Mochi-nya fresh dan lembut sekali!"', stars:5 },
+];
+function renderTesti(){
+  const track = document.getElementById('testiTrack');
+  const all = [...testiData,...testiData]; // duplicate for loop
+  track.innerHTML = all.map(t=>`
+    <div class="testi-card">
+      <div class="testi-stars">${'★'.repeat(t.stars)}</div>
+      <div class="testi-text">${t.text}</div>
+      <div class="testi-author">
+        <div class="testi-avatar">${t.name.charAt(0)}</div>
+        <div>
+          <div class="testi-name">${t.name}</div>
+          <div class="testi-loc">📍 ${t.loc}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+renderTesti();
+
+/* ---------- NAVBAR SCROLL ---------- */
+window.addEventListener('scroll',()=>{
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+  document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
+  // active nav
+  const sections = ['home','produk','keunggulan','galeri','testimoni','kontak'];
+  let current = '';
+  sections.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 100) current = id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('href')==='#'+current);
+  });
+},{passive:true});
+
+/* ---------- HAMBURGER ---------- */
+document.getElementById('hamburger').addEventListener('click',function(){
+  this.classList.toggle('open');
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+document.querySelectorAll('.mobile-nav a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    document.getElementById('hamburger').classList.remove('open');
+    document.getElementById('mobileNav').classList.remove('open');
+  });
+});
+
+/* ---------- REVEAL ON SCROLL ---------- */
+function observeReveal(){
+  const els = document.querySelectorAll('.reveal:not(.visible),.reveal-left:not(.visible),.reveal-right:not(.visible)');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  },{ threshold:0.15 });
+  els.forEach(el=>io.observe(el));
+}
+observeReveal();
+
+/* ---------- LIGHTBOX ---------- */
+function openLightbox(src){
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e){
+  if(e.target===document.getElementById('lightbox')){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow='';
+  }
+});
+
+/* ---------- WHATSAPP ORDERS ---------- */
+const WA_NUMBER = '6287814749635';
+function openWA(url){
+  // Gunakan location.href agar kompatibel di HP (tidak diblokir popup blocker)
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if(isMobile){
+    window.location.href = url;
+  } else {
+    window.open(url, '_blank');
+  }
+}
+function orderWA(product){
+  const msg = encodeURIComponent(`Halo Mochi Gen-Z! 🍡\nSaya ingin memesan:\n\n🛒 *${product}* - Rp 12.000/pcs\n\nBisa info stok dan cara pemesanan? Terima kasih!`);
+  const url = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+  showToast('Diarahkan ke WhatsApp...');
+  openWA(url);
+}
+function sendContactWA(){
+  const name    = document.getElementById('fName').value.trim();
+  const phone   = document.getElementById('fPhone').value.trim();
+  const subject = document.getElementById('fSubject').value.trim();
+  const message = document.getElementById('fMessage').value.trim();
+  if(!name){ alert('Mohon isi nama Anda!'); return; }
+  const msg = encodeURIComponent(
+    `Halo Mochi Gen-Z! 👋\n\n*Nama:* ${name}\n*No. WA:* ${phone||'-'}\n*Subjek:* ${subject||'-'}\n\n*Pesan:*\n${message||'(tidak ada pesan)'}`
+  );
+  const url = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+  showToast('Mengirim pesan via WhatsApp...');
+  openWA(url);
+}
+
+/* ---------- TOAST ---------- */
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = '✅ '+msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+</script>
+</body>
+</html>
